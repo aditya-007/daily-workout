@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#f6f4ef" />
+<title>दैनिक वर्कआउट</title>
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ============ HOME VIEW ============ -->
+  <section id="view-home" class="view active" aria-label="होम स्क्रीन">
+    <header class="home-header">
+      <p id="greeting" class="greeting">नमस्ते</p>
+      <p id="streak-line" class="streak-line hidden"></p>
+    </header>
+
+    <div id="today-card" class="today-card" aria-live="polite">
+      <!-- filled by render.js: renderHome() -->
+    </div>
+
+    <button id="start-workout-btn" type="button" class="btn btn-primary btn-large">
+      वर्कआउट शुरू करें
+    </button>
+
+    <h2 class="section-title">साप्ताहिक कार्यक्रम</h2>
+    <div id="weekly-list" class="weekly-list">
+      <!-- filled by render.js: renderWeeklyList() -->
+    </div>
+  </section>
+
+  <!-- ============ WORKOUT VIEW ============ -->
+  <section id="view-workout" class="view" aria-label="वर्कआउट स्क्रीन">
+    <header class="workout-header">
+      <button id="btn-home-from-workout" type="button" class="icon-btn" aria-label="होम पर जाएँ">←</button>
+      <p id="exercise-progress" class="exercise-progress">व्यायाम 1 / 8</p>
+    </header>
+
+    <h2 id="exercise-title" class="exercise-title">व्यायाम का नाम</h2>
+
+    <div class="video-pair">
+      <div class="video-wrap">
+        <span class="video-label">फ्रंट व्यू</span>
+        <video id="video-front" class="video-thumb" muted loop autoplay playsinline preload="none"></video>
+      </div>
+      <div class="video-wrap">
+        <span class="video-label">साइड व्यू</span>
+        <video id="video-side" class="video-thumb" muted loop autoplay playsinline preload="none"></video>
+      </div>
+    </div>
+
+    <p id="exercise-meta" class="exercise-meta">10 बार × 2 सेट</p>
+
+    <h3 class="instructions-heading">निर्देश</h3>
+    <ol id="instructions-list" class="instructions-list">
+      <!-- filled by render.js: renderExercise() -->
+    </ol>
+
+    <div class="workout-nav">
+      <button id="btn-prev" type="button" class="btn btn-secondary">पिछला</button>
+      <button id="btn-complete" type="button" class="btn btn-primary">पूरा हुआ</button>
+      <button id="btn-next" type="button" class="btn btn-secondary">अगला</button>
+    </div>
+  </section>
+
+  <!-- ============ COMPLETE VIEW ============ -->
+  <section id="view-complete" class="view" aria-label="वर्कआउट पूरा हुआ">
+    <div class="complete-card">
+      <p class="complete-emoji" aria-hidden="true">🎉</p>
+      <h2 class="complete-heading">शानदार!</h2>
+      <p class="complete-sub">वर्कआउट पूरा हुआ</p>
+      <p class="complete-time-label">लिया गया समय</p>
+      <p id="complete-time" class="complete-time">0 मिनट</p>
+      <p id="complete-message" class="complete-message"></p>
+      <button id="btn-home" type="button" class="btn btn-primary btn-large">होम पर जाएँ</button>
+    </div>
+  </section>
+
+</div>
+
+<!-- ============ FULLSCREEN VIDEO MODAL ============ -->
+<div id="video-modal" class="video-modal hidden" aria-label="बड़ा वीडियो दृश्य">
+  <video id="video-modal-player" muted loop autoplay playsinline></video>
+  <button id="video-modal-back" type="button" class="btn btn-primary video-modal-back">वापस जाएँ</button>
+</div>
+
+<script src="js/data/exercises.js"></script>
+<script src="js/data/schedule.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/render.js"></script>
+<script src="js/video.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

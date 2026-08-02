@@ -1,0 +1,28 @@
+Exercise Name: Bodyweight Squat
+Muscle Group: Quads (Legs)
+Equipment: Bodyweight
+Difficulty: Novice
+Model: Female
+Source: https://musclewiki.com/hi-in/exercise/bodyweight-squat?model=f
+
+Note: MuscleWiki's hi-in (Hindi) locale only translates the site UI text;
+the step-by-step exercise instructions are not localized into Hindi at the
+source (they load in English even on this Hindi URL). English is provided
+below as the best available fallback, as requested.
+
+Instructions:
+1
+पैर कंधे की चौड़ाई पर फैलाकर खड़े हों।
+2
+घुटने और कूल्हे मोड़ें और शरीर को नीचे लाते हुए पीछे बैठकर स्क्वाट में जाएँ।
+3
+नीचे पूरी गहराई तक उतरें
+4
+शुरू की स्थिति पर वापस जाएँ।
+
+1. Stand with your feet shoulder width apart.
+2. Flex your knees and hips and sit back into the squat while lowering your body.
+3. Continue down to full depth.
+4. Return to starting position.
+
+Video: (add animation.mp4 / animation.gif to this folder manually)

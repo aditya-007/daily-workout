@@ -1,0 +1,25 @@
+Exercise Name: Walking Lunge
+Muscle Group: Quads (Legs)
+Equipment: Bodyweight
+Difficulty: Intermediate
+Model: Female
+Source: https://musclewiki.com/hi-in/exercise/lunge-walking?model=f
+
+Note: MuscleWiki's hi-in (Hindi) locale only translates the site UI text;
+the step-by-step exercise instructions are not localized into Hindi at the
+source (they load in English even on this Hindi URL). English is provided
+below as the best available fallback, as requested.
+
+Instructions:
+1
+एक कदम आगे बढ़ाएँ और अपना वजन आगे वाली टांग पर डालें।
+2
+आगे वाले पैर का घुटना मोड़ें ताकि पीछे वाले पैर का घुटना जमीन के करीब आ जाए।
+3
+खड़े हो जाएँ और दूसरे पैर से लंज में जाएँ।
+
+1. Take a step forward shifting your weight onto the front leg.
+2. Bend the knee of the front leg so the knee of the back leg comes close to the ground.
+3. Stand up and go into lunging with the opposite leg.
+
+Video: (add animation.mp4 / animation.gif to this folder manually)

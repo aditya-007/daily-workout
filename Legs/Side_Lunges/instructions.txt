@@ -1,0 +1,28 @@
+Exercise Name: Side Lunges
+Muscle Group: Quads (Legs)
+Equipment: Bodyweight
+Difficulty: Novice
+Model: Female
+Source: https://musclewiki.com/hi-in/exercise/side-lunges?model=f
+
+Note: MuscleWiki's hi-in (Hindi) locale only translates the site UI text;
+the step-by-step exercise instructions are not localized into Hindi at the
+source (they load in English even on this Hindi URL). English is provided
+below as the best available fallback, as requested.
+
+Instructions:
+1
+धीरे से दाईं ओर एक साइड स्टेप लें।
+2
+बाएं घुटने को सीधा करें और अपना वजन दाईं तरफ ले जाएँ।
+3
+घुटना मोड़ें और शरीर को नीचे ले जाएँ।
+4
+धक्का देकर प्रारंभिक स्थिति में लौटें।
+
+1. Take a slow, lateral step to the right.
+2. Extend the left knee, and drive your weight into your right side.
+3. Flex your knee and lower your body.
+4. Push back to the starting position.
+
+Video: (add animation.mp4 / animation.gif to this folder manually)

@@ -1,0 +1,28 @@
+Exercise Name: Forward Lunges
+Muscle Group: Quads (Legs)
+Equipment: Bodyweight
+Difficulty: Novice
+Model: Female
+Source: https://musclewiki.com/hi-in/exercise/forward-lunges?model=f
+
+Note: MuscleWiki's hi-in (Hindi) locale only translates the site UI text;
+the step-by-step exercise instructions are not localized into Hindi at the
+source (they load in English even on this Hindi URL). English is provided
+below as the best available fallback, as requested.
+
+Instructions:
+1
+एक पैर आगे बढ़ाएँ।
+2
+अपने शरीर को नीचे उतारें जब तक पीछे वाला घुटना लगभग जमीन को छू ले।
+3
+सीधा रहें और सुनिश्चित करें कि सामने वाला घुटना सामने वाले पैर के ऊपर रहे।
+4
+सामने वाले पैर से ज़मीन को धकेलें और प्रारंभिक स्थिति में लौटें। पैर बदलें।
+
+1. Step forward with one leg.
+2. Lower your body until your rear knee nearly touches the ground.
+3. Ensure you remain upright, and your front knee stays above the front foot.
+4. Push off the floor with your front foot until you return to the starting position. Switch legs.
+
+Video: (add animation.mp4 / animation.gif to this folder manually)

@@ -1,0 +1,25 @@
+Exercise Name: Bulgarian Split Squat
+Muscle Group: Quads (Legs)
+Equipment: Bodyweight
+Difficulty: Beginner
+Model: Female
+Source: https://musclewiki.com/hi-in/exercise/bulgarian-split-squat?model=f
+
+Note: MuscleWiki's hi-in (Hindi) locale only translates the site UI text;
+the step-by-step exercise instructions are not localized into Hindi at the
+source (they load in English even on this Hindi URL). English is provided
+below as the best available fallback, as requested.
+
+Instructions:
+1
+बेंच (या ऊँची सतह) की ओर पीठ करके खड़े हों और अपना एक पैर बेंच पर रखें।
+2
+स्क्वाट करें जब तक आपका आगे वाला पैर लगभग फर्श के समानांतर न हो।
+3
+शुरू की स्थिति में लौटें। इच्छित रेप्स पूरे करने के बाद, पैर बदलें और दोहराएँ।
+
+1. Stand with your back to a bench (or raised surface) and place one of your feet on the bench.
+2. Squat down until your front leg is about parallel to the floor.
+3. Go back to the starting position. After completing the desired amount of reps, switch legs and repeat.
+
+Video: (add animation.mp4 / animation.gif to this folder manually)

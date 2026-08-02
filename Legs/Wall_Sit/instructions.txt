@@ -1,0 +1,25 @@
+Exercise Name: Wall Sit
+Muscle Group: Quads (Legs)
+Equipment: Bodyweight
+Difficulty: Novice
+Model: Female
+Source: https://musclewiki.com/hi-in/exercise/wall-sit?model=f
+
+Note: MuscleWiki's hi-in (Hindi) locale only translates the site UI text;
+the step-by-step exercise instructions are not localized into Hindi at the
+source (they load in English even on this Hindi URL). English is provided
+below as the best available fallback, as requested.
+
+Instructions:
+1
+अपनी पीठ दीवार के साथ टिका कर रखें, पैरों को कंधे की चौड़ाई पर रखें।
+2
+स्क्वाट पोज़िशन में नीचे जाएँ, जांघें फर्श के समानांतर हों और घुटने टखनों के ऊपर रहें।
+3
+स्थिति बनाए रखें, कोर और पैरों में तनाव बनाए रखें।
+
+1. Press your back against a wall, feet shoulder-width apart.
+2. Lower into a squat position, thighs parallel to the floor, knees above ankles.
+3. Hold the position, maintaining tension in your core and legs.
+
+Video: (add animation.mp4 / animation.gif to this folder manually)
