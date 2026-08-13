@@ -1,0 +1,440 @@
+/* dashboard.css — minimal private analytics view. Visual language borrowed from the
+   parent app's palette (css/styles.css) but kept fully independent — no shared file. */
+
+:root {
+  --color-bg: #f6f4ef;
+  --color-surface: #ffffff;
+  --color-text: #1f2a24;
+  --color-text-muted: #4b5a52;
+  --color-primary: #2f6f4f;
+  --color-primary-dark: #21523a;
+  --color-accent: #d98c3d;
+  --color-border: #e1ddd2;
+  --color-danger: #b3441e;
+
+  --font-family: "Segoe UI", Roboto, -apple-system, sans-serif;
+  --radius: 12px;
+  --space-1: 8px;
+  --space-2: 12px;
+  --space-3: 16px;
+  --space-4: 24px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.45;
+}
+
+.hidden {
+  display: none !important;
+}
+
+h1 {
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+h2 {
+  font-size: 1.05rem;
+  margin: 0 0 var(--space-2);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.btn {
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 0.9rem;
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+.btn-secondary:hover,
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+.btn-small {
+  padding: 4px 10px;
+}
+
+/* ---------- Login ---------- */
+.login-view {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3);
+}
+
+.login-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-4);
+  width: 100%;
+  max-width: 340px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.login-sub {
+  color: var(--color-text-muted);
+  margin: 0 0 var(--space-2);
+  font-size: 0.9rem;
+}
+
+.login-card label {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin-top: var(--space-1);
+}
+
+.login-card input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  font-size: 1rem;
+}
+
+.login-card .btn {
+  margin-top: var(--space-3);
+}
+
+.login-error {
+  color: var(--color-danger);
+  font-size: 0.85rem;
+  margin: var(--space-1) 0 0;
+}
+
+/* ---------- Dashboard shell ---------- */
+.dashboard-view {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: var(--space-3) var(--space-3) var(--space-4);
+}
+
+.dash-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-3);
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.dash-header-actions {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.status-banner {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-2) var(--space-3);
+  margin-bottom: var(--space-3);
+  color: var(--color-text-muted);
+}
+
+.status-banner.error {
+  color: var(--color-danger);
+  border-color: var(--color-danger);
+}
+
+/* ---------- Summary cards ---------- */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.summary-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-3);
+  text-align: center;
+}
+
+.summary-card .value {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+}
+
+.summary-card .label {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin-top: 4px;
+}
+
+/* ---------- Panels ---------- */
+.panel {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.panel-sub {
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  margin: -6px 0 var(--space-2);
+}
+
+.panel-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.panel.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+@media (max-width: 640px) {
+  .panel.two-col {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+}
+
+/* ---------- Week list ---------- */
+.week-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.92rem;
+}
+
+.week-row:last-child {
+  border-bottom: none;
+}
+
+.week-row .day-name {
+  width: 90px;
+  color: var(--color-text-muted);
+}
+
+.week-row .workout-name {
+  flex: 1;
+}
+
+.week-row.done .workout-name::before {
+  content: "\2713  ";
+  color: var(--color-primary);
+}
+
+.week-row .duration {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+}
+
+/* ---------- Calendar ---------- */
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.calendar .cal-dow {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  padding-bottom: 4px;
+}
+
+.calendar .cal-day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  border: 1px solid transparent;
+  background: var(--color-bg);
+  color: var(--color-text-muted);
+}
+
+.calendar .cal-day.empty {
+  background: transparent;
+}
+
+.calendar .cal-day.completed {
+  background: var(--color-primary);
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.calendar .cal-day.abandoned {
+  background: var(--color-accent);
+  color: #fff;
+  cursor: pointer;
+}
+
+.calendar .cal-day.today {
+  border-color: var(--color-primary-dark);
+}
+
+.day-detail {
+  margin-top: var(--space-2);
+  padding: var(--space-2);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.day-detail dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 12px;
+  margin: 0;
+}
+
+.day-detail dt {
+  color: var(--color-text-muted);
+}
+
+/* ---------- Recent workouts ---------- */
+.recent-row {
+  display: grid;
+  grid-template-columns: 70px 1fr 60px 60px 30px;
+  gap: var(--space-2);
+  padding: 8px 0;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.9rem;
+  align-items: center;
+}
+
+.recent-row:last-child {
+  border-bottom: none;
+}
+
+.recent-row .status.ok {
+  color: var(--color-primary);
+}
+
+.recent-row .status.abandoned {
+  color: var(--color-accent);
+}
+
+/* ---------- Duration stats ---------- */
+.stat-row {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.stat-row .stat {
+  text-align: center;
+}
+
+.stat-row .stat .value {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+}
+
+.stat-row .stat .label {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+/* ---------- Histogram ---------- */
+.histogram {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.histogram .hist-row {
+  display: grid;
+  grid-template-columns: 90px 1fr 30px;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.82rem;
+}
+
+.histogram .hist-bar-track {
+  background: var(--color-bg);
+  border-radius: 4px;
+  height: 14px;
+  overflow: hidden;
+}
+
+.histogram .hist-bar {
+  background: var(--color-primary);
+  height: 100%;
+}
+
+/* ---------- Insight lists ---------- */
+.insight-list .insight-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.88rem;
+}
+
+.insight-list .insight-row:last-child {
+  border-bottom: none;
+}
+
+.insight-list .insight-row .metric {
+  color: var(--color-text-muted);
+}
+
+/* ---------- Devices ---------- */
+.device-list {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.device-card {
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: var(--space-2) var(--space-3);
+  min-width: 140px;
+}
+
+.device-card .device-name {
+  font-weight: 600;
+}
+
+.device-card .device-meta {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+}
+
+.empty-note {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  padding: var(--space-2) 0;
+}

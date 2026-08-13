@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Workout Dashboard</title>
+<link rel="stylesheet" href="dashboard.css" />
+</head>
+<body>
+
+<!-- LOGIN VIEW -->
+<section id="login-view" class="login-view">
+  <form id="login-form" class="login-card">
+    <h1>Workout Dashboard</h1>
+    <p class="login-sub">Private analytics — sign in to continue.</p>
+    <label for="login-email">Email</label>
+    <input id="login-email" type="email" autocomplete="username" required />
+    <label for="login-password">Password</label>
+    <input id="login-password" type="password" autocomplete="current-password" required />
+    <button id="login-submit" type="submit" class="btn btn-primary">Sign in</button>
+    <p id="login-error" class="login-error hidden"></p>
+  </form>
+</section>
+
+<!-- DASHBOARD VIEW -->
+<section id="dashboard-view" class="dashboard-view hidden">
+  <header class="dash-header">
+    <h1>Workout Dashboard</h1>
+    <div class="dash-header-actions">
+      <button id="refresh-btn" type="button" class="btn btn-secondary">Refresh</button>
+      <button id="logout-btn" type="button" class="btn btn-secondary">Sign out</button>
+    </div>
+  </header>
+
+  <p id="status-banner" class="status-banner hidden"></p>
+
+  <div id="dashboard-content" class="hidden">
+    <section class="card-grid" id="summary-cards"></section>
+
+    <section class="panel">
+      <h2>This Week</h2>
+      <div id="week-list" class="week-list"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-header-row">
+        <h2 id="calendar-title">Calendar</h2>
+        <div class="calendar-nav">
+          <button id="cal-prev" type="button" class="btn btn-secondary btn-small">&lsaquo;</button>
+          <button id="cal-next" type="button" class="btn btn-secondary btn-small">&rsaquo;</button>
+        </div>
+      </div>
+      <div id="calendar" class="calendar"></div>
+      <div id="day-detail" class="day-detail hidden"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Recent Workouts</h2>
+      <div id="recent-list" class="recent-list"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Duration</h2>
+      <div id="duration-stats" class="stat-row"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Workout Time</h2>
+      <p class="panel-sub">Start times (IST)</p>
+      <div id="time-histogram" class="histogram"></div>
+    </section>
+
+    <section class="panel two-col">
+      <div>
+        <h2>Most Skipped Exercises</h2>
+        <div id="skipped-list" class="insight-list"></div>
+      </div>
+      <div>
+        <h2>Longest Exercises</h2>
+        <div id="longest-list" class="insight-list"></div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Devices</h2>
+      <div id="device-list" class="device-list"></div>
+    </section>
+  </div>
+</section>
+
+<script src="../js/vendor/supabase.min.js"></script>
+<script src="../js/config.js"></script>
+<script src="../js/data/exercises.js"></script>
+<script src="../js/data/schedule.js"></script>
+<script src="dashboard.js"></script>
+</body>
+</html>
