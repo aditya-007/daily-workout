@@ -20,6 +20,10 @@ const App = (() => {
     currentDaySchedule = schedule;
     currentIndex = 0;
     workoutStartedAt = Date.now();
+    if (window.Telemetry) {
+      window.Telemetry.trackWorkoutStart(currentDaySchedule);
+      window.Telemetry.trackExerciseView(currentDaySchedule.exerciseIds[currentIndex], currentIndex);
+    }
     renderExercise(currentDaySchedule, currentIndex);
     showView("view-workout");
   }
@@ -28,13 +32,22 @@ const App = (() => {
     if (currentIndex > 0) {
       currentIndex -= 1;
       renderExercise(currentDaySchedule, currentIndex);
+      if (window.Telemetry) {
+        window.Telemetry.trackExerciseView(currentDaySchedule.exerciseIds[currentIndex], currentIndex);
+      }
     }
   }
 
   function goNext() {
     if (currentIndex < currentDaySchedule.exerciseIds.length - 1) {
+      if (window.Telemetry) {
+        window.Telemetry.trackExerciseOutcome(currentDaySchedule.exerciseIds[currentIndex], currentIndex, "skip");
+      }
       currentIndex += 1;
       renderExercise(currentDaySchedule, currentIndex);
+      if (window.Telemetry) {
+        window.Telemetry.trackExerciseView(currentDaySchedule.exerciseIds[currentIndex], currentIndex);
+      }
     }
   }
 
@@ -42,16 +55,25 @@ const App = (() => {
    * or finishes the workout if this was the last one. */
   function markComplete() {
     const isLast = currentIndex === currentDaySchedule.exerciseIds.length - 1;
+    if (window.Telemetry) {
+      window.Telemetry.trackExerciseOutcome(currentDaySchedule.exerciseIds[currentIndex], currentIndex, "complete");
+    }
     if (isLast) {
       finishWorkout();
     } else {
       currentIndex += 1;
       renderExercise(currentDaySchedule, currentIndex);
+      if (window.Telemetry) {
+        window.Telemetry.trackExerciseView(currentDaySchedule.exerciseIds[currentIndex], currentIndex);
+      }
     }
   }
 
   function finishWorkout() {
     const durationMs = Date.now() - workoutStartedAt;
+    if (window.Telemetry) {
+      window.Telemetry.trackWorkoutComplete(durationMs);
+    }
     markWorkoutComplete(
       currentDaySchedule.dayKey,
       currentDaySchedule.nameHi,
@@ -72,7 +94,10 @@ const App = (() => {
     document.getElementById("btn-prev").addEventListener("click", goPrev);
     document.getElementById("btn-next").addEventListener("click", goNext);
     document.getElementById("btn-complete").addEventListener("click", markComplete);
-    document.getElementById("btn-home-from-workout").addEventListener("click", goHome);
+    document.getElementById("btn-home-from-workout").addEventListener("click", () => {
+      if (window.Telemetry) window.Telemetry.trackWorkoutAbandon();
+      goHome();
+    });
     document.getElementById("btn-home").addEventListener("click", goHome);
     renderHome();
   }
