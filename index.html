@@ -91,6 +91,12 @@
 <script src="js/data/schedule.js"></script>
 <script src="js/storage.js"></script>
 <script src="js/render.js"></script>
+<script>
+  // Ensure exercises defined with 2 sets are displayed as 3 sets everywhere.
+  if (typeof EXERCISES !== 'undefined') {
+    EXERCISES.forEach(e => { if (typeof e.sets !== 'undefined' && e.sets === 2) e.sets = 3; });
+  }
+</script>
 <script src="js/video.js"></script>
 <script src="js/vendor/supabase.min.js"></script>
 <script src="js/config.js"></script>

@@ -4,6 +4,13 @@
 // "current") lives in app.js.
 
 /** Fast lookup: exercise id -> exercise object. */
+// Override: change any exercise that currently has 2 sets to 3 sets
+// so the app shows 3 sets per exercise without regenerating data files.
+if (typeof EXERCISES !== "undefined") {
+  EXERCISES.forEach((ex) => {
+    if (typeof ex.sets !== "undefined" && ex.sets === 2) ex.sets = 3;
+  });
+}
 const EXERCISES_BY_ID = Object.fromEntries(EXERCISES.map((ex) => [ex.id, ex]));
 
 /** Order to display the weekly list in, Monday first. */
