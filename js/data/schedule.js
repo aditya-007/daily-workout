@@ -32,6 +32,8 @@ const WEEKLY_SCHEDULE = {
       "arm-dumbell-rear-delt-row",
       "shoulder-back-dumbell-shrug",
       "arm-bench-dips",
+      "shoulder-back-dumbell-lateral-raise",
+      "shoulder-back-farmer-walk",
     ],
   },
   2: {
@@ -49,6 +51,8 @@ const WEEKLY_SCHEDULE = {
       "legs-dumbell-calf-raise",
       "legs-wall-sit",
       "legs-dumbell-leg-extension",
+      "legs-standing-hamstring-curl",
+      "legs-single-leg-balance",
     ],
   },
   3: {
@@ -66,6 +70,8 @@ const WEEKLY_SCHEDULE = {
       "abs-mountain-climber",
       "abs-elbow-side-plank",
       "abs-dumbell-side-bend",
+      "arm-arm-rotation",
+      "shoulder-back-side-leg-raise",
     ],
   },
   4: {
@@ -82,6 +88,9 @@ const WEEKLY_SCHEDULE = {
       "arm-dumbell-triceps-kickback",
       "arm-seated-dumbell-tricep-extenstion",
       "shoulder-back-dumbell-rear-delt-fly",
+      "chest-dumbell-chest-fly",
+      "arm-dumbell-hammer-curl",
+      "shoulder-back-dumbell-shrug",
     ],
   },
   5: {
@@ -99,6 +108,8 @@ const WEEKLY_SCHEDULE = {
       "legs-dumbell-single-leg-calf-raise",
       "legs-walking-calf-raise",
       "legs-seated-dumbell-calf-raise",
+      "legs-bodyweight-squat",
+      "legs-dumbell-glute-bridge",
     ],
   },
   6: {
@@ -116,14 +127,27 @@ const WEEKLY_SCHEDULE = {
       "shoulder-back-side-leg-raise",
       "shoulder-back-bodyweight-superman-pull",
       "shoulder-back-bodyweight-pike-press",
+      "abs-plank",
+      "abs-elbow-side-plank",
     ],
   },
   0: {
-    // Sunday — Rest Day
+    // Sunday — Full Body Stability + Mobility
     dayKey: "sun",
-    nameHi: "आराम का दिन",
-    nameEn: "Rest Day",
-    rest: true,
-    exerciseIds: [],
+    nameHi: "फुल-बॉडी स्थिरता + गतिशीलता",
+    nameEn: "Full Body Stability + Mobility",
+    rest: false,
+    exerciseIds: [
+      "arm-arm-rotation",
+      "abs-bird-dog",
+      "legs-bodyweight-squat",
+      "legs-standing-hamstring-curl",
+      "legs-dumbell-glute-bridge",
+      "shoulder-back-side-leg-raise",
+      "legs-calf-raise",
+      "shoulder-back-farmer-walk",
+      "legs-single-leg-balance",
+      "abs-plank",
+    ],
   },
 };

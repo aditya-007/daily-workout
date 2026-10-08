@@ -21,6 +21,22 @@ const EXERCISES = [
     "sets": 2
   },
   {
+    "id": "abs-bird-dog",
+    "category": "abs",
+    "categoryLabelHi": "कोर",
+    "titleHi": "बर्ड-डॉग",
+    "folder": "Abs/Bird-dog",
+    "videoFront": "Abs/Bird-dog/female-Bodyweight-bird-dog-front.mp4",
+    "videoSide": "Abs/Bird-dog/female-Bodyweight-bird-dog-side.mp4",
+    "instructionsHi": [
+      "1   हाथों और घुटनों के बल शुरू करें।",
+      "दायाँ हाथ और बायाँ पैर सीधा करें.",
+      "कुछ सेकंड के लिए रोकें, फिर दूसरी तरफ जाएँ।"
+    ],
+    "reps": 8,
+    "sets": 2
+  },
+  {
     "id": "abs-crunches",
     "category": "abs",
     "categoryLabelHi": "कोर",
@@ -617,6 +633,20 @@ const EXERCISES = [
     "sets": 2
   },
   {
+    "id": "legs-single-leg-balance",
+    "category": "legs",
+    "categoryLabelHi": "पैर",
+    "titleHi": "एक पैर संतुलन",
+    "folder": "Legs/Single-leg-balance",
+    "videoFront": "Legs/Single-leg-balance/female-Bodyweight-bodyweight-single-leg-balance-stable-front.mp4",
+    "videoSide": "Legs/Single-leg-balance/female-Bodyweight-bodyweight-single-leg-balance-stable-side.mp4",
+    "instructionsHi": [
+      "किसी स्थिर चीज़ को पकड़ें और विपरीत पैर को सीधे ऊपर की ओर खींचें। इस स्थिति को बनाए रखें।"
+    ],
+    "holdSeconds": 20,
+    "sets": 2
+  },
+  {
     "id": "legs-single-leg-calf-raise",
     "category": "legs",
     "categoryLabelHi": "पैर",
@@ -628,6 +658,23 @@ const EXERCISES = [
       "किसी चीज़ को पकड़कर संतुलन बनाएँ। एक पैर जमीन से उठाएँ।",
       "घुटनों को स्थिर रखते हुए अपनी एड़ी ऊपर उठाएं।",
       "जब आपकी एड़ियाँ पूरी तरह ऊपर हों तो रुकें, फिर धीरे-धीरे प्रारंभिक स्थिति में लौटें और दोहराएँ।"
+    ],
+    "reps": 10,
+    "sets": 2
+  },
+  {
+    "id": "legs-standing-hamstring-curl",
+    "category": "legs",
+    "categoryLabelHi": "पैर",
+    "titleHi": "खड़े होकर हैमस्ट्रिंग कर्ल",
+    "folder": "Legs/Standing_hamstring_curl",
+    "videoFront": "Legs/Standing_hamstring_curl/male-Recovery-hamstring-curl-standing-bodyweight-single-leg-front.mp4",
+    "videoSide": "Legs/Standing_hamstring_curl/male-Recovery-hamstring-curl-standing-bodyweight-single-leg-side.mp4",
+    "instructionsHi": [
+      "किसी संतुलन सहारे की मदद से सीधे खड़े हों।",
+      "अपने वजन को एक पैर पर डालें.",
+      "वजन न उठाने वाले पैर को मोड़ें और सीधा करें।",
+      "घुटने सीधे रहें।"
     ],
     "reps": 10,
     "sets": 2
@@ -714,6 +761,21 @@ const EXERCISES = [
     "sets": 2
   },
   {
+    "id": "shoulder-back-dumbell-lateral-raise",
+    "category": "shoulder-back",
+    "categoryLabelHi": "कंधे और पीठ",
+    "titleHi": "डम्बल लेटरल रेज़",
+    "folder": "Shoulder%20and%20Back/Dumbell_lateral_raise",
+    "videoFront": "Shoulder%20and%20Back/Dumbell_lateral_raise/female-Dumbbells-dumbbell-bent-arm-lateral-raise-front.mp4",
+    "videoSide": "Shoulder%20and%20Back/Dumbell_lateral_raise/female-Dumbbells-dumbbell-bent-arm-lateral-raise-side.mp4",
+    "instructionsHi": [
+      "सीधे खड़े रहें, कोहनियों में 90 degree का मोड़ रखें।",
+      "लेटरल रेज: अपनी बाहों को साइड में सीधा बाहर उठाएँ जब तक वे जमीन के लगभग समानांतर न हों।"
+    ],
+    "reps": 10,
+    "sets": 2
+  },
+  {
     "id": "shoulder-back-dumbell-rear-delt-fly",
     "category": "shoulder-back",
     "categoryLabelHi": "कंधे और पीठ",
@@ -741,6 +803,21 @@ const EXERCISES = [
       "दो डम्बल्स के साथ सीधा खड़े हों। अपने कंधे की ब्लेड्स को ऊपर खींचें। ऊपर one second के लिए कसकर रखें।"
     ],
     "reps": 12,
+    "sets": 2
+  },
+  {
+    "id": "shoulder-back-farmer-walk",
+    "category": "shoulder-back",
+    "categoryLabelHi": "कंधे और पीठ",
+    "titleHi": "फार्मर वॉक",
+    "folder": "Shoulder%20and%20Back/Farmer_walk",
+    "videoFront": "Shoulder%20and%20Back/Farmer_walk/female-Dumbbells-dumbbell-farmer-walk-front.mp4",
+    "videoSide": "Shoulder%20and%20Back/Farmer_walk/female-Dumbbells-dumbbell-farmer-walk-side.mp4",
+    "instructionsHi": [
+      "हर हाथ में एक डम्बल पकड़ें, बाहें सीधे नीचे रहें।",
+      "सीधी मुद्रा बनाकर आगे चलें।"
+    ],
+    "holdSeconds": 30,
     "sets": 2
   },
   {

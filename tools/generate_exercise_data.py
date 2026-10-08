@@ -57,6 +57,7 @@ CATEGORIES = [
 EXERCISE_META = {
     # ---- Abs ----
     "abs-alternate-leg-raise": {"titleHi": "एक-एक कर पैर उठाना", "reps": 10, "sets": 2},
+    "abs-bird-dog": {"titleHi": "बर्ड-डॉग", "reps": 8, "sets": 2},
     "abs-crunches": {"titleHi": "क्रंचेस", "reps": 12, "sets": 2},
     "abs-dumbell-overhead-side-bend": {"titleHi": "डम्बल ओवरहेड साइड बेंड", "reps": 10, "sets": 2},
     "abs-dumbell-russian-twist": {"titleHi": "डम्बल रशियन ट्विस्ट", "reps": 10, "sets": 2},
@@ -98,14 +99,18 @@ EXERCISE_META = {
     "legs-seated-dumbell-calf-raise": {"titleHi": "बैठकर डम्बल काफ रेज़", "reps": 12, "sets": 2},
     "legs-side-lunges": {"titleHi": "साइड लंज", "reps": 8, "sets": 2},
     "legs-single-leg-calf-raise": {"titleHi": "एक पैर काफ रेज़", "reps": 10, "sets": 2},
+    "legs-single-leg-balance": {"titleHi": "एक पैर संतुलन", "holdSeconds": 20, "sets": 2},
+    "legs-standing-hamstring-curl": {"titleHi": "खड़े होकर हैमस्ट्रिंग कर्ल", "reps": 10, "sets": 2},
     "legs-walking-calf-raise": {"titleHi": "वॉकिंग काफ रेज़", "reps": 12, "sets": 2},
     "legs-walking-lunge": {"titleHi": "वॉकिंग लंज", "reps": 8, "sets": 2},
     "legs-wall-sit": {"titleHi": "वॉल सिट", "holdSeconds": 20, "sets": 2},
     # ---- Shoulder and Back ----
     "shoulder-back-bodyweight-pike-press": {"titleHi": "पाइक प्रेस", "reps": 8, "sets": 2},
     "shoulder-back-bodyweight-superman-pull": {"titleHi": "सुपरमैन पुल", "reps": 10, "sets": 2},
+    "shoulder-back-dumbell-lateral-raise": {"titleHi": "डम्बल लेटरल रेज़", "reps": 10, "sets": 2},
     "shoulder-back-dumbell-rear-delt-fly": {"titleHi": "डम्बल रियर डेल्ट फ्लाई", "reps": 10, "sets": 2},
     "shoulder-back-dumbell-shrug": {"titleHi": "डम्बल श्रग", "reps": 12, "sets": 2},
+    "shoulder-back-farmer-walk": {"titleHi": "फार्मर वॉक", "holdSeconds": 30, "sets": 2},
     "shoulder-back-side-leg-raise": {"titleHi": "साइड लेग रेज़", "reps": 10, "sets": 2},
 }
 
