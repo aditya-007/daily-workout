@@ -33,7 +33,18 @@
     </div>
   </header>
 
-  <p id="status-banner" class="status-banner hidden"></p>
+  <div class="dashboard-toolbar" aria-label="Dashboard filters">
+    <div class="profile-filter-group">
+      <label for="profile-filter">Workout profile</label>
+      <select id="profile-filter">
+        <option value="">All profiles</option>
+      </select>
+    </div>
+    <p id="scope-label" class="scope-label" aria-live="polite">Showing all profiles</p>
+    <p id="last-updated" class="last-updated" aria-live="polite"></p>
+  </div>
+
+  <p id="status-banner" class="status-banner hidden" role="status"></p>
 
   <div id="dashboard-content" class="hidden">
     <section class="card-grid" id="summary-cards"></section>
@@ -83,7 +94,7 @@
     </section>
 
     <section class="panel">
-      <h2>Devices</h2>
+      <h2>Workout profiles</h2>
       <div id="device-list" class="device-list"></div>
     </section>
   </div>

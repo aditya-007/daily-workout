@@ -18,6 +18,8 @@
   let calendarYear = null;
   let calendarMonth = null; // 1-12, IST
   let refreshTimer = null;
+  let selectedUserId = "";
+  let lastUpdatedAt = null;
 
   // ---------- IST-aware date helpers ----------
   // All "which day/week/month did this happen" logic is anchored to India time,
@@ -89,6 +91,101 @@
     return formatIstDateLabel(dateInput);
   }
 
+  function buildProfiles(sessionData) {
+    const byUser = {};
+    sessionData.forEach((session) => {
+      if (!session.user_id) return;
+      if (!byUser[session.user_id]) byUser[session.user_id] = [];
+      byUser[session.user_id].push(session);
+    });
+
+    return Object.entries(byUser)
+      .map(([userId, list]) => {
+        const started = list.map((session) => new Date(session.started_at).getTime());
+        return {
+          userId,
+          count: list.length,
+          firstSeen: Math.min(...started),
+          lastSeen: Math.max(...started),
+        };
+      })
+      .sort((a, b) => a.firstSeen - b.firstSeen || a.userId.localeCompare(b.userId))
+      .map((profile, index) => ({
+        ...profile,
+        label: "Device " + (index + 1),
+      }));
+  }
+
+  function renderProfileFilter(profiles) {
+    const select = document.getElementById("profile-filter");
+    select.innerHTML = "";
+
+    const allOption = document.createElement("option");
+    allOption.value = "";
+    allOption.textContent = "All profiles (" + sessions.length + " workouts)";
+    select.appendChild(allOption);
+
+    profiles.forEach((profile) => {
+      const option = document.createElement("option");
+      option.value = profile.userId;
+      option.textContent = profile.label + " (" + profile.count + " workouts)";
+      select.appendChild(option);
+    });
+
+    select.value = selectedUserId;
+    select.disabled = profiles.length === 0;
+
+    const selectedProfile = profiles.find((profile) => profile.userId === selectedUserId);
+    document.getElementById("scope-label").textContent = selectedProfile
+      ? "Showing " + selectedProfile.label + " · " + selectedProfile.count + " workouts"
+      : "Showing all profiles · " + sessions.length + " workouts";
+
+    document.getElementById("last-updated").textContent = lastUpdatedAt
+      ? "Last updated " + formatIstDateLabel(lastUpdatedAt) + " " + formatIstTime(lastUpdatedAt) + " IST"
+      : "";
+  }
+
+  function getVisibleSessions() {
+    return selectedUserId ? sessions.filter((session) => session.user_id === selectedUserId) : sessions;
+  }
+
+  function getVisibleEvents(visibleSessions) {
+    const sessionIds = new Set(visibleSessions.map((session) => session.id));
+    return events.filter((event) => sessionIds.has(event.session_id));
+  }
+
+  function renderVisibleDashboard(now, profiles) {
+    const visibleSessions = getVisibleSessions();
+    const visibleEvents = getVisibleEvents(visibleSessions);
+    renderProfileFilter(profiles);
+
+    if (visibleSessions.length === 0) {
+      setStatus(
+        selectedUserId ? "No workout activity recorded for this profile." : "No workout activity recorded yet.",
+        false
+      );
+      document.getElementById("dashboard-content").classList.add("hidden");
+      return;
+    }
+
+    setStatus(null);
+    document.getElementById("dashboard-content").classList.remove("hidden");
+    renderSummaryCards(now, visibleSessions);
+    renderWeek(now, visibleSessions);
+    renderCalendar(calendarYear, calendarMonth, visibleSessions, visibleEvents);
+    renderRecent(visibleSessions);
+    renderDurationStats(visibleSessions);
+    renderHistogram(visibleSessions);
+    renderExerciseInsights(visibleEvents);
+    renderDevices(profiles, selectedUserId);
+  }
+
+  function setSelectedUser(userId) {
+    selectedUserId = userId;
+    const profiles = buildProfiles(sessions);
+    renderVisibleDashboard(istParts(Date.now()), profiles);
+  }
+
   // ---------- Auth ----------
   function showLogin() {
     document.getElementById("login-view").classList.remove("hidden");
@@ -123,6 +220,10 @@
   async function handleLogout() {
     if (refreshTimer) clearInterval(refreshTimer);
     await client.auth.signOut();
+    selectedUserId = "";
+    sessions = [];
+    events = [];
+    lastUpdatedAt = null;
     showLogin();
   }
 
@@ -157,15 +258,20 @@
 
       sessions = sessionsRes.data || [];
       events = eventsRes.data || [];
+      const profiles = buildProfiles(sessions);
+
+      if (selectedUserId && !profiles.some((profile) => profile.userId === selectedUserId)) {
+        selectedUserId = "";
+      }
+
+      lastUpdatedAt = Date.now();
 
       if (sessions.length === 0) {
         setStatus("No workout activity recorded yet.", false);
         document.getElementById("dashboard-content").classList.add("hidden");
+        renderProfileFilter(profiles);
         return;
       }
-
-      setStatus(null);
-      document.getElementById("dashboard-content").classList.remove("hidden");
 
       const now = istParts(Date.now());
       if (calendarYear == null) {
@@ -173,14 +279,7 @@
         calendarMonth = now.month;
       }
 
-      renderSummaryCards(now);
-      renderWeek(now);
-      renderCalendar(calendarYear, calendarMonth);
-      renderRecent();
-      renderDurationStats();
-      renderHistogram();
-      renderExerciseInsights();
-      renderDevices();
+      renderVisibleDashboard(now, profiles);
     } catch (err) {
       setStatus("Unable to load workout data. Please try again.", true);
       document.getElementById("dashboard-content").classList.add("hidden");
@@ -188,14 +287,14 @@
   }
 
   // ---------- Summary cards ----------
-  function renderSummaryCards(now) {
+  function renderSummaryCards(now, sessionData) {
     const weekStartUtcMid = mondayOfIstWeek(now);
-    const inCurrentWeek = sessions.filter((s) => {
+    const inCurrentWeek = sessionData.filter((s) => {
       const d = istParts(s.started_at);
       const dUtcMid = Date.UTC(d.year, d.month - 1, d.day);
       return dUtcMid >= weekStartUtcMid && dUtcMid < weekStartUtcMid + 7 * 86400000;
     });
-    const inCurrentMonth = sessions.filter((s) => {
+    const inCurrentMonth = sessionData.filter((s) => {
       const d = istParts(s.started_at);
       return d.year === now.year && d.month === now.month;
     });
@@ -242,7 +341,16 @@
   }
 
   // ---------- This Week ----------
-  function renderWeek(now) {
+  function latestSessionForDate(sessionData, dayUtcMid) {
+    return sessionData
+      .filter((session) => {
+        const d = istParts(session.started_at);
+        return Date.UTC(d.year, d.month - 1, d.day) === dayUtcMid;
+      })
+      .sort((a, b) => new Date(b.started_at) - new Date(a.started_at))[0] || null;
+  }
+
+  function renderWeek(now, sessionData) {
     const weekStart = mondayOfIstWeek(now);
     const dayNames = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
     const container = document.getElementById("week-list");
@@ -253,10 +361,7 @@
       const dowIndex = (i + 1) % 7; // Monday=1 .. Sunday=0, matches WEEKLY_SCHEDULE keys
       const schedule = typeof WEEKLY_SCHEDULE !== "undefined" ? WEEKLY_SCHEDULE[dowIndex] : null;
 
-      const match = sessions.find((s) => {
-        const d = istParts(s.started_at);
-        return Date.UTC(d.year, d.month - 1, d.day) === dayUtcMid;
-      });
+      const match = latestSessionForDate(sessionData, dayUtcMid);
 
       const row = document.createElement("div");
       row.className = "week-row" + (match && match.completed ? " done" : "");
@@ -288,7 +393,7 @@
   }
 
   // ---------- Calendar ----------
-  function renderCalendar(year, month) {
+  function renderCalendar(year, month, sessionData, eventData) {
     document.getElementById("calendar-title").textContent = new Intl.DateTimeFormat("en-US", {
       month: "long",
       year: "numeric",
@@ -311,7 +416,7 @@
     const today = istParts(Date.now());
 
     const byDate = {};
-    sessions.forEach((s) => {
+    sessionData.forEach((s) => {
       const d = istParts(s.started_at);
       if (d.year === year && d.month === month) {
         const existing = byDate[d.day];
@@ -336,15 +441,24 @@
       el.className = cls;
       el.textContent = String(day);
       if (session) {
-        el.addEventListener("click", () => renderDayDetail(session));
+        el.setAttribute("role", "button");
+        el.setAttribute("tabindex", "0");
+        el.setAttribute("aria-label", "View workout details for day " + day);
+        el.addEventListener("click", () => renderDayDetail(session, eventData));
+        el.addEventListener("keydown", (event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            renderDayDetail(session, eventData);
+          }
+        });
       }
       container.appendChild(el);
     }
   }
 
-  function renderDayDetail(session) {
+  function renderDayDetail(session, eventData) {
     const el = document.getElementById("day-detail");
-    const completeCount = events.filter((e) => e.session_id === session.id && e.event_type === "complete").length;
+    const completeCount = eventData.filter((e) => e.session_id === session.id && e.event_type === "complete").length;
 
     el.innerHTML = "";
     const dl = document.createElement("dl");
@@ -378,14 +492,15 @@
       calendarYear += 1;
     }
     document.getElementById("day-detail").classList.add("hidden");
-    renderCalendar(calendarYear, calendarMonth);
+    const visibleSessions = getVisibleSessions();
+    renderCalendar(calendarYear, calendarMonth, visibleSessions, getVisibleEvents(visibleSessions));
   }
 
   // ---------- Recent workouts ----------
-  function renderRecent() {
+  function renderRecent(sessionData) {
     const container = document.getElementById("recent-list");
     container.innerHTML = "";
-    sessions.slice(0, 10).forEach((s) => {
+    sessionData.slice(0, 10).forEach((s) => {
       const row = document.createElement("div");
       row.className = "recent-row";
 
@@ -411,8 +526,8 @@
   }
 
   // ---------- Duration stats ----------
-  function renderDurationStats() {
-    const durations = sessions.filter((s) => s.completed && s.duration_ms != null).map((s) => s.duration_ms);
+  function renderDurationStats(sessionData) {
+    const durations = sessionData.filter((s) => s.completed && s.duration_ms != null).map((s) => s.duration_ms);
     const container = document.getElementById("duration-stats");
     container.innerHTML = "";
 
@@ -448,9 +563,9 @@
   }
 
   // ---------- Workout time histogram ----------
-  function renderHistogram() {
+  function renderHistogram(sessionData) {
     const counts = {};
-    sessions.forEach((s) => {
+    sessionData.forEach((s) => {
       const hour = istParts(s.started_at).hour;
       counts[hour] = (counts[hour] || 0) + 1;
     });
@@ -498,11 +613,11 @@
     return ex ? ex.titleHi : exerciseId;
   }
 
-  function renderExerciseInsights() {
+  function renderExerciseInsights(eventData) {
     const skipCounts = {};
     const completeDurations = {};
 
-    events.forEach((e) => {
+    eventData.forEach((e) => {
       if (e.event_type === "skip") {
         skipCounts[e.exercise_id] = (skipCounts[e.exercise_id] || 0) + 1;
       } else if (e.event_type === "complete" && e.time_spent_ms != null) {
@@ -549,35 +664,21 @@
   }
 
   // ---------- Devices ----------
-  function renderDevices() {
-    const byUser = {};
-    sessions.forEach((s) => {
-      if (!byUser[s.user_id]) byUser[s.user_id] = [];
-      byUser[s.user_id].push(s);
-    });
-
-    const devices = Object.entries(byUser)
-      .map(([userId, list]) => {
-        const started = list.map((s) => new Date(s.started_at).getTime());
-        return {
-          firstSeen: Math.min(...started),
-          lastSeen: Math.max(...started),
-          count: list.length,
-        };
-      })
-      .sort((a, b) => a.firstSeen - b.firstSeen);
-
+  function renderDevices(profiles, activeUserId) {
     const container = document.getElementById("device-list");
     container.innerHTML = "";
-    devices.forEach((d, i) => {
-      const card = document.createElement("div");
-      card.className = "device-card";
+    profiles.forEach((profile) => {
+      const card = document.createElement("button");
+      card.type = "button";
+      card.className = "device-card" + (profile.userId === activeUserId ? " selected" : "");
+      card.setAttribute("aria-pressed", String(profile.userId === activeUserId));
+      card.addEventListener("click", () => setSelectedUser(profile.userId));
       const name = document.createElement("div");
       name.className = "device-name";
-      name.textContent = "Device " + (i + 1);
+      name.textContent = profile.label;
       const meta = document.createElement("div");
       meta.className = "device-meta";
-      meta.textContent = d.count + " workouts · Last active: " + relativeDayLabel(d.lastSeen);
+      meta.textContent = profile.count + " workouts · Last active: " + relativeDayLabel(profile.lastSeen);
       card.appendChild(name);
       card.appendChild(meta);
       container.appendChild(card);
@@ -593,6 +694,9 @@
     document.getElementById("login-form").addEventListener("submit", handleLogin);
     document.getElementById("logout-btn").addEventListener("click", handleLogout);
     document.getElementById("refresh-btn").addEventListener("click", loadData);
+    document.getElementById("profile-filter").addEventListener("change", (event) => {
+      setSelectedUser(event.target.value);
+    });
     document.getElementById("cal-prev").addEventListener("click", () => changeMonth(-1));
     document.getElementById("cal-next").addEventListener("click", () => changeMonth(1));
 

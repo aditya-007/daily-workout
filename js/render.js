@@ -68,6 +68,66 @@ function getGreetingHi() {
   return "शुभ संध्या";
 }
 
+function renderProgressLoading() {
+  document.getElementById("progress-week").textContent = "...";
+  document.getElementById("progress-month").textContent = "...";
+  document.getElementById("progress-total").textContent = "...";
+  document.getElementById("progress-minutes").textContent = "...";
+  document.getElementById("progress-last-name").textContent = "लोड हो रहा है...";
+  document.getElementById("progress-last-meta").textContent = "";
+  document.getElementById("progress-status").textContent = "";
+}
+
+function renderProgressUnavailable() {
+  document.getElementById("progress-week").textContent = "—";
+  document.getElementById("progress-month").textContent = "—";
+  document.getElementById("progress-total").textContent = "—";
+  document.getElementById("progress-minutes").textContent = "—";
+  document.getElementById("progress-last-name").textContent = "प्रगति अभी उपलब्ध नहीं है";
+  document.getElementById("progress-last-meta").textContent = "वर्कआउट फिर भी शुरू कर सकते हैं";
+  document.getElementById("progress-status").textContent = "प्रगति बाद में सिंक होगी";
+}
+
+function renderProgressMetrics(metrics) {
+  document.getElementById("progress-week").textContent = `${metrics.weekCompleted} / ${metrics.weekScheduled}`;
+  document.getElementById("progress-month").textContent = `${metrics.monthCompleted} / ${metrics.monthScheduled}`;
+  document.getElementById("progress-total").textContent = String(metrics.totalCompleted);
+  document.getElementById("progress-minutes").textContent = String(metrics.monthMinutes);
+
+  if (metrics.lastWorkout) {
+    document.getElementById("progress-last-name").textContent = metrics.lastWorkout.name;
+    document.getElementById("progress-last-meta").textContent = [
+      metrics.lastWorkout.date,
+      metrics.lastWorkout.duration,
+    ].filter(Boolean).join(" • ");
+  } else {
+    document.getElementById("progress-last-name").textContent = "अभी कोई पूरा वर्कआउट नहीं";
+    document.getElementById("progress-last-meta").textContent = "आज से शुरुआत करें";
+  }
+  document.getElementById("progress-status").textContent = "";
+}
+
+function refreshProgress() {
+  renderProgressLoading();
+  if (!window.Progress) {
+    renderProgressUnavailable();
+    return;
+  }
+  window.Progress.load()
+    .then((result) => {
+      if (result.status === "ready") {
+        renderProgressMetrics(result.metrics);
+      } else {
+        renderProgressUnavailable();
+      }
+    })
+    .catch(() => renderProgressUnavailable());
+}
+
+window.WorkoutProgressUI = {
+  refresh: refreshProgress,
+};
+
 /** Monday 00:00 of the week containing `date`. */
 function mostRecentMonday(date) {
   const d = new Date(date);
@@ -90,7 +150,7 @@ function renderHome() {
 
   const streakLine = document.getElementById("streak-line");
   if (state.streak > 1) {
-    streakLine.textContent = `🔥 ${state.streak} दिनों की लकीर`;
+    streakLine.textContent = `🔥लगातार ${state.streak} दिन का वर्कआउट   अपनी स्ट्रीक बनाए रखें!`;
     streakLine.classList.remove("hidden");
   } else {
     streakLine.classList.add("hidden");
@@ -120,6 +180,7 @@ function renderHome() {
   }
 
   renderWeeklyList(state, todayDow);
+  if (window.WorkoutProgressUI) window.WorkoutProgressUI.refresh();
 }
 
 function renderWeeklyList(state, todayDow) {

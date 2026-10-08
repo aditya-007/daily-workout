@@ -18,6 +18,34 @@
       <p id="streak-line" class="streak-line hidden"></p>
     </header>
 
+    <section id="progress-summary" class="progress-summary" aria-labelledby="progress-title" aria-live="polite">
+      <h2 id="progress-title" class="progress-title">आपकी प्रगति</h2>
+      <div class="progress-grid">
+        <div class="progress-stat">
+          <strong id="progress-week" class="progress-value">...</strong>
+          <span class="progress-label">वर्कआउट इस हफ्ते</span>
+        </div>
+        <div class="progress-stat">
+          <strong id="progress-month" class="progress-value">...</strong>
+          <span class="progress-label">वर्कआउट इस महीने</span>
+        </div>
+        <div class="progress-stat">
+          <strong id="progress-total" class="progress-value">...</strong>
+          <span class="progress-label">कुल वर्कआउट</span>
+        </div>
+        <div class="progress-stat">
+          <strong id="progress-minutes" class="progress-value">...</strong>
+          <span class="progress-label">इस महीने के मिनट</span>
+        </div>
+        <div class="progress-last">
+          <span class="progress-label">पिछला वर्कआउट</span>
+          <strong id="progress-last-name" class="progress-last-name">लोड हो रहा है...</strong>
+          <span id="progress-last-meta" class="progress-last-meta"></span>
+        </div>
+      </div>
+      <p id="progress-status" class="progress-status"></p>
+    </section>
+
     <div id="today-card" class="today-card" aria-live="polite">
       <!-- filled by render.js: renderHome() -->
     </div>
@@ -100,6 +128,8 @@
 <script src="js/video.js"></script>
 <script src="js/vendor/supabase.min.js"></script>
 <script src="js/config.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/progress.js"></script>
 <script src="js/telemetry.js"></script>
 <script src="js/app.js"></script>
 </body>

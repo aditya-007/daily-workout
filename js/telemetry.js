@@ -5,7 +5,6 @@
   const QUEUE_KEY = "workoutApp:telemetryQueue:v1";
   const MAX_QUEUE = 200;
 
-  let client = null;
   let accessToken = null;
   let currentSessionId = null;
   let currentExerciseStartedAt = null;
@@ -75,14 +74,8 @@
 
   async function init() {
     try {
-      client = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-        auth: { persistSession: true, autoRefreshToken: true, storageKey: "workoutApp:supabaseAuth" },
-      });
-
-      let session = (await client.auth.getSession()).data.session;
-      if (!session) {
-        session = (await client.auth.signInAnonymously()).data.session;
-      }
+      const client = await window.WorkoutAuth.getAuthenticatedClient();
+      const session = (await client.auth.getSession()).data.session;
       accessToken = session ? session.access_token : null;
 
       client.auth.onAuthStateChange((_event, nextSession) => {
